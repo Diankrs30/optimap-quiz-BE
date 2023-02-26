@@ -139,6 +139,7 @@ const userController = {
       const payload = {
         id: result.rows[0].id,
         email: result.rows[0].email,
+        name: result.rows[0].first_name,
       };
       return response(res, {
         status: 200,
