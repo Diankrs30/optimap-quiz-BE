@@ -132,6 +132,28 @@ const userController = {
       });
     }
   },
+
+  getUserById: async (req, res) => {
+    try {
+      const result = await usersRepo.getUserById(req.userPayload.id);
+      const payload = {
+        id: result.rows[0].id,
+        email: result.rows[0].email,
+      };
+      return response(res, {
+        status: 200,
+        data: payload,
+        message: "Get success",
+      });
+    } catch (error) {
+      console.log(error);
+      return response(res, {
+        error,
+        status: 500,
+        message: "Internal server error",
+      });
+    }
+  },
 };
 
 module.exports = userController;

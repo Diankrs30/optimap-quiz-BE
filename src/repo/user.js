@@ -49,6 +49,20 @@ const getUserByEmail = (email) => {
   });
 };
 
+const getUserById = (id) => {
+  return new Promise((resolve, reject) => {
+    const query = "select * from users where id = $1";
+
+    postgreDb.query(query, [id], (error, result) => {
+      if (error) {
+        console.log(error);
+        return reject(error);
+      }
+      return resolve(result);
+    });
+  });
+};
+
 const insertWhiteListToken = (token) => {
   return new Promise((resolve, reject) => {
     const query = " insert into white_list_token (token) values ($1)";
@@ -96,6 +110,7 @@ const usersRepo = {
   insertWhiteListToken,
   checkWhiteListToken,
   deleteWhiteListToken,
+  getUserById,
 };
 
 module.exports = usersRepo;
